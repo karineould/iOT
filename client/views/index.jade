@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  script(src="/javascripts/socket.io/socket.io.js")
+  script(type='text/javascript').
+    var socket = io.connect('http://10.75.2.15:9999',{transports: ['websocket', 'polling', 'flashsocket']});
+    socket.on('/test', function (message) {
+      console.log('Le serveur a un message pour vous : ' + message);
+    });
+
