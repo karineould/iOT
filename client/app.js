@@ -62,13 +62,13 @@ app.use(function(err, req, res, next) {
 var server = require('http').Server(app);
 
 app.get('/', function (req, res) {
-  res.writeHead(
-     206,
-     {
-     'Access-Control-Allow-Credentials': true,
-     'Access-Control-Allow-Origin': true,
-     }
-   );
+  //res.writeHead(
+  //   206,
+  //   {
+  //   'Access-Control-Allow-Credentials': true,
+  //   'Access-Control-Allow-Origin': true,
+  //   }
+  // );
   res.sendfile(__dirname + '/views/index.jade');
 });
 
@@ -80,12 +80,16 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
   console.log('Un client est connecté !');
   socket.emit('test', "Vous êtes bien connecté");
-  //socket.on('my other event', function (data) {
-  //  console.log(data);
-  //});
+
+  //socket.emit('sendData', cpu, thread);
+  setInterval(function(){
+    var random1 = Math.floor((100)*Math.random()+0) ;
+    var random2 = Math.floor((100)*Math.random()+0) ;
+    socket.emit('sendData', random1, random2);
+  }, 1000);
 });
 
 
-server.listen(9999);
+server.listen(3001);
 
 module.exports = app;

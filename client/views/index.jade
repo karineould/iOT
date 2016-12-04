@@ -3,10 +3,41 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+    #gaugeCPU.200x160px
+    #gaugeThread.200x160px
+  script(src="/javascripts/lib/jquery-3.1.1.min.js")
+  script(src="/javascripts/justgage/raphael-2.1.4.min.js")
+  script(src="/javascripts/justgage/justgage.js")
   script(src="/javascripts/socket.io/socket.io.js")
   script(type='text/javascript').
-    var socket = io.connect('http://10.75.2.15:9999',{transports: ['websocket', 'polling', 'flashsocket']});
-    socket.on('/test', function (message) {
+    //var socket = io.connect('http://192.168.1.25:9999',{transports: ['websocket', 'polling', 'flashsocket']});
+    var socket = io.connect('http://localhost:3001',{transports: ['websocket', 'polling', 'flashsocket']});
+    var gC;
+    var gT;
+    socket.on('test', function (message) {
       console.log('Le serveur a un message pour vous : ' + message);
+      gC = new JustGage({
+        id: "gaugeCPU",
+        value: 0,
+        min: 0,
+        max: 100,
+        title: "CPU"
+      });
+
+      gT = new JustGage({
+        id: "gaugeThread",
+        value: 0,
+        min: 0,
+        max: 100,
+        title: "Threads"
+      });
+
     });
+
+    socket.on('sendData', function (cpu, thread) {
+      console.log('donnees : ' + cpu + ' - ' + thread);
+      gC.refresh(cpu);
+      gT.refresh(thread);
+    });
+
 
