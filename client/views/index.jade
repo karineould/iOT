@@ -38,9 +38,12 @@ block content
       var ip = $('#inputIP').val();
       var port = $('#inputPort').val();
       var socket = io.connect('http://' + ip + ':' + port, {transports: ['websocket', 'polling', 'flashsocket']});
+      socket.emit('reponse', 'batman');
+
       alert('connexion : http://' + ip + ':' + port);
       var gC;
       var gT;
+
       socket.on('connexion', function (message) {
         $('#myModal').modal('hide');
         alert('connexion réussi');
