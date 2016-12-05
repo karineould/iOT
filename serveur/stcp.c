@@ -40,22 +40,22 @@ struct Elt {
 /* code du service fourni par le serveur */
 void service(int fd)
 {
-    int i=0, n;
+int i=0, n;
+
+char *reply = "HTTP/1.1 200 OK\n"
+"Content-Type: text/html\n"
+"Content-Length: 40\n"
+"Accept-Ranges: bytes\n"
+"Connection: close\n"
+"\n"
+"<html><body>HELLO WORLD !</body></html>";
+
     /* on attend le message du client */
     if ((n = lireMess(fd,buf,LBUF,'\n')) == -1) 
         sprintf(buf,"Message trop long ! %d car maxi !\n",LBUF-1);
     else {
-       /* recherche dans la table */
-       while (strlen(annuaire[i].nom) > 0) {
-          if (strcmp(buf,annuaire[i].nom) == 0) {
-             sprintf(buf,"Reponse:%s\n",annuaire[i].ip);
-             break;
-          }
-          i++;
+        sprintf(buf,"%s\n",reply);
        }
-       if (strlen(annuaire[i].nom) == 0) sprintf(buf,"Non trouve !\n");
-    }
-    // sprintf(buf,"Hello World !\n");
     write(fd,buf,strlen(buf));
     close(fd);
 }
@@ -71,7 +71,7 @@ struct sockaddr_in SRec; /* structure de reception des messages */
       perror("socket"); return 1;
    }
    /* demande d'attachement a un port */
-   /* si on veut choisir son port, on decommente la ligne suivante :*/
+    //si on veut choisir son port, on decommente la ligne suivante :
    SAddr.sin_port = htons(PORT);
    
    if (bind(sid, (struct sockaddr *)&SAddr, sizeof(SAddr)) == -1) {
