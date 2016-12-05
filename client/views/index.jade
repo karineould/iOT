@@ -1,0 +1,79 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  // Modal
+  #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true', data-backdrop='static' data-keyboard='false')
+    .modal-dialog
+      .modal-content
+        // Modal Header
+        .modal-header
+          //button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span.sr-only Close
+          h4#myModalLabel.modal-title Connexion à un serveur
+        // Modal Body
+        .modal-body
+          //form(role='form')
+          .form-group
+            label(for='inputIP') Adresse IP
+            input#inputIP.form-control(type='text', placeholder="Entrez l'adresse IP")
+          .form-group
+            label(for='inputPort') Port
+            input#inputPort.form-control(type='number', placeholder='Port')
+          button#buttonConnexion.btn.btn-default Connexion
+
+  #gaugeCPU.200x160px
+  #gaugeThread.200x160px
+  script(src="/javascripts/lib/jquery-3.1.1.min.js")
+  script(src="/javascripts/bootstrap/bootstrap.min.js")
+  script(src="/javascripts/justgage/raphael-2.1.4.min.js")
+  script(src="/javascripts/justgage/justgage.js")
+  script(src="/javascripts/socket.io/socket.io.js")
+  script(type='text/javascript').
+    //var socket = io.connect('http://192.168.1.25:9999',{transports: ['websocket', 'polling', 'flashsocket']});
+    $('#myModal').modal('show');
+    $('#buttonConnexion').on('click', function(){
+      var ip = $('#inputIP').val();
+      var port = $('#inputPort').val();
+      var socket = io.connect('http://' + ip + ':' + port, {transports: ['websocket', 'polling', 'flashsocket']});
+      socket.emit('reponse', 'batman');
+
+      alert('connexion : http://' + ip + ':' + port);
+      var gC;
+      var gT;
+
+      socket.on('connexion', function (message) {
+        $('#myModal').modal('hide');
+        alert('connexion réussi');
+        console.log('Le serveur a un message pour vous : ' + message);
+        gC = new JustGage({
+          id: "gaugeCPU",
+          value: 0,
+          min: 0,
+          max: 100,
+          title: "CPU"
+        });
+
+        gT = new JustGage({
+          id: "gaugeThread",
+          value: 0,
+          min: 0,
+          max: 100,
+          title: "Threads"
+        });
+
+      });
+
+      socket.on('sendData', function (cpu, thread) {
+        console.log('donnees : ' + cpu + ' - ' + thread);
+        gC.refresh(cpu);
+        gT.refresh(thread);
+      });
+    });
+
+
+
+
+
