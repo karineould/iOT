@@ -10,11 +10,11 @@
 
 #include "outils.h"
 
-#define PORT 9999
+#define PORT 8080
 
 struct sockaddr_in SAddr = { AF_INET }; /* le reste est a zero !*/
 
-#define LBUF 512
+#define LBUF 1024
 char buf[LBUF];
 
 char * add_ip (long A)
@@ -42,21 +42,32 @@ void service(int fd)
 {
 int i=0, n;
 
-char *reply = "HTTP/1.1 200 OK\n"
+char *reply = 
+"HTTP/1.1 200 OK\n"
 "Content-Type: text/html\n"
 "Content-Length: 40\n"
-"Accept-Ranges: bytes\n"
-"Connection: close\n"
+"Connection: Keep-Alive\n"
+"Access-Control-Allow-Headers: Content-Type,*\n"
+"Access-Control-Allow-Credentials: true\n"
+"Access-Control-Allow-Origin: http://localhost:3001\n"
 "\n"
 "<html><body>HELLO WORLD !</body></html>";
 
+
+// "GET / HTTP/1.1 200 OK\n"
+// "Host: localhost";
     /* on attend le message du client */
-    if ((n = lireMess(fd,buf,LBUF,'\n')) == -1) 
+    if ((n = lireMess(fd,buf,LBUF,'\n')) == -1) {
         sprintf(buf,"Message trop long ! %d car maxi !\n",LBUF-1);
-    else {
+    }
+
+    printf("Début d'envoi des données vers le moniteur %d.%s\n", fd,buf);
+    printf("--------------------------------------------------\n\n");
+    // while(1) {
         sprintf(buf,"%s\n",reply);
-       }
-    write(fd,buf,strlen(buf));
+        write(fd, buf, strlen(buf));
+        // sleep(1);
+    // }
     close(fd);
 }
 
