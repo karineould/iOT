@@ -29,36 +29,6 @@ static char b[16];
     return b; 
 }
 
-//       char *reply = 
-//       "HTTP/1.1 200 OK\n"
-//       "Content-Type: text/html\n"
-//       "Content-Length: 40\n"
-//       "Connection: Keep-Alive\n"
-//       "Access-Control-Allow-Headers: Content-Type,*\n"
-//       "Access-Control-Allow-Credentials: true\n"
-//       "Access-Control-Allow-Origin: http://localhost:3000\n"
-//       "\n"
-//       "<html><body>HELLO WORLD !</body></html>";
-
-
-//       char *reply = 
-//       "HTTP/1.0 403 FORBIDDEN\n"
-//       "Content-Type: text/html\n"
-//       "Content-Length: 40\n"
-//       "Connection: Keep-Alive\n"
-//       "Access-Control-Allow-Headers: Content-Type,*\n"
-//       "Access-Control-Allow-Credentials: true\n"
-//       "Access-Control-Allow-Origin: http://localhost:3001\n"
-//       "\n"
-//       "<html><body>403 FORBIDDEN</body></html>";
-//       printf("--%s--\n", buf);
-//       printf("REQUEST : %s\n", buf);
-//       fprintf(stderr, "Erreur : le serveur n'accepte que des demandes GET\n\n");
-//       sprintf(buf,reply);
-//       write(fd, buf, strlen(buf));
-//       sleep(1);
-
-
 void * newService(void * fd){
 
   char buff[LBUF];

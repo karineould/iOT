@@ -3,6 +3,7 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
+
     #gaugeCPU.200x160px
     #gaugeThread.200x160px
     script(src="/javascripts/lib/jquery-3.1.1.min.js")
@@ -14,31 +15,26 @@ block content
         var gC;
         var gT;
 
-         gC = new JustGage({
-             id: "gaugeCPU",
-             value: 0,
-             min: 0,
-             max: 100,
-             title: "CPU"
-         });
+        gC = new JustGage({
+            id: "gaugeCPU",
+            value: 0,
+            min: 0,
+            max: 100,
+            title: "CPU"
+        });
 
-         gT = new JustGage({
-             id: "gaugeThread",
-             value: 0,
-             min: 0,
-             max: 100,
-             title: "Threads"
-         });
+        gT = new JustGage({
+            id: "gaugeThread",
+            value: 0,
+            min: 0,
+            max: 100,
+            title: "Threads"
+        });
 
-
-            /*socket.on('sendData', function (cpu, thread) {
-             console.log('donnees : ' + cpu + ' - ' + thread);
-             gC.refresh(cpu);
-             gT.refresh(thread);
-             });*/
-
-
-
-
-
+        var socket = io.connect('http://localhost:3001');
+        socket.on('newData', function (newData) {
+            console.log('Le serveur a un message pour vous : ' + newData.cpu);
+            gC.refresh(newData.cpu);
+            gT.refresh(newData.thread);
+        });
 
