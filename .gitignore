@@ -33,5 +33,4 @@
 *.su
 serveur/stcp
 serveur/clitcp
-client/.idea/watcherTasks.xml
-client/.idea/workspace.xml
+client/.idea/*
