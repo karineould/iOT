@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    #gaugeCPU.200x160px
+    #gaugeThread.200x160px
+    script(src="/javascripts/lib/jquery-3.1.1.min.js")
+    script(src="/javascripts/bootstrap/bootstrap.min.js")
+    script(src="/javascripts/justgage/raphael-2.1.4.min.js")
+    script(src="/javascripts/justgage/justgage.js")
+    script(src="/javascripts/socket.io/socket.io.js")
+    script(type='text/javascript').
+
+//            var gC;
+//            var gT;
+//
+//             gC = new JustGage({
+//             id: "gaugeCPU",
+//             value: 0,
+//             min: 0,
+//             max: 100,
+//             title: "CPU"
+//             });
+//
+//             gT = new JustGage({
+//             id: "gaugeThread",
+//             value: 0,
+//             min: 0,
+//             max: 100,
+//             title: "Threads"
+//             });
+
+
+            /*socket.on('sendData', function (cpu, thread) {
+             console.log('donnees : ' + cpu + ' - ' + thread);
+             gC.refresh(cpu);
+             gT.refresh(thread);
+             });*/
+
+
+
+
+
+
