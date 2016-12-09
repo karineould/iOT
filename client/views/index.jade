@@ -32,21 +32,26 @@ block content
   script(src="/javascripts/justgage/justgage.js")
   script(src="/javascripts/socket.io/socket.io.js")
   script(type='text/javascript').
-    //var socket = io.connect('http://192.168.1.25:9999',{transports: ['websocket', 'polling', 'flashsocket']});
+
     $('#myModal').modal('show');
     $('#buttonConnexion').on('click', function(){
       var ip = $('#inputIP').val();
       var port = $('#inputPort').val();
-      var socket = io.connect('http://' + ip + ':' + port, {transports: ['websocket', 'polling', 'flashsocket']});
-      socket.emit('reponse', 'batman');
 
-      alert('connexion : http://' + ip + ':' + port);
+      window.location.href = '/data?ip='+ip+'&port='+port;
       var gC;
       var gT;
 
-      socket.on('connexion', function (message) {
-        $('#myModal').modal('hide');
-        alert('connexion réussi');
+      //console.log(socket);
+      //socket.on('dataFromRasp', function (dataFromServer) {
+        //console.log(dataFromServer);
+        // A chaque réception de données, faire ce qu'il y a ici
+      //});
+
+      //socket.on('connection', function (message) {
+        //console.log("blabla");
+      /*$('#myModal').modal('hide');
+      alert('connexion réussi');
         console.log('Le serveur a un message pour vous : ' + message);
         gC = new JustGage({
           id: "gaugeCPU",
@@ -62,15 +67,14 @@ block content
           min: 0,
           max: 100,
           title: "Threads"
-        });
+        });*/
+      //});
 
-      });
-
-      socket.on('sendData', function (cpu, thread) {
+      /*socket.on('sendData', function (cpu, thread) {
         console.log('donnees : ' + cpu + ' - ' + thread);
         gC.refresh(cpu);
         gT.refresh(thread);
-      });
+      });*/
     });
 
 

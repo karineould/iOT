@@ -10,6 +10,7 @@ var users = require('./routes/users');
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -33,7 +34,6 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -57,39 +57,9 @@ app.use(function(err, req, res, next) {
 });
 
 
-// socket.io
-
-var server = require('http').Server(app);
-
 app.get('/', function (req, res) {
-  //res.writeHead(
-  //   206,
-  //   {
-  //   'Access-Control-Allow-Credentials': true,
-  //   'Access-Control-Allow-Origin': true,
-  //   }
-  // );
   res.sendfile(__dirname + '/views/index.jade');
 });
 
-
-// Chargement de socket.io
-var io = require('socket.io').listen(server);
-
-// Quand un client se connecte, on le note dans la console
-io.sockets.on('connection', function (socket) {
-  console.log('Un client est connecté !');
-  socket.emit('connexion', "Vous êtes bien connecté");
-
-  //socket.emit('sendData', cpu, thread);
-  setInterval(function(){
-    var random1 = Math.floor((100)*Math.random()+0) ;
-    var random2 = Math.floor((100)*Math.random()+0) ;
-    socket.emit('sendData', random1, random2);
-  }, 1000);
-});
-
-
-server.listen(3001);
 
 module.exports = app;
