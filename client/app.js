@@ -61,5 +61,16 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/views/index.jade');
 });
 
+//creation du serveur d'emission de donnée
+var server = require('http').Server(app);
+server.listen(3001);
+
+// Chargement de socket.io
+var io = require('socket.io').listen(server);
+// Quand un client se connecte, on le note dans la console
+io.sockets.on('connection', function (socket) {
+  console.log('Un client est connecté !');
+});
+app.set('socketio', io);
 
 module.exports = app;
