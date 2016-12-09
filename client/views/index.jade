@@ -34,12 +34,13 @@ block content
   script(type='text/javascript').
 
     $('#myModal').modal('show');
-    $('#buttonConnexion').on('click', function(){
-      var ip = $('#inputIP').val();
-      var port = $('#inputPort').val();
+    $('#buttonConnexion').on('click', function() {
+        var ip = $('#inputIP').val();
+        var port = $('#inputPort').val();
 
-      window.location.href = '/data?ip='+ip+'&port='+port;
-      var gC;
+        window.location.href = '/data?ip=' + ip + '&port=' + port;
+    });
+     /* var gC;
       var gT;
 
       //console.log(socket);
@@ -50,7 +51,7 @@ block content
 
       //socket.on('connection', function (message) {
         //console.log("blabla");
-      /*$('#myModal').modal('hide');
+      $('#myModal').modal('hide');
       alert('connexion réussi');
         console.log('Le serveur a un message pour vous : ' + message);
         gC = new JustGage({
@@ -74,8 +75,8 @@ block content
         console.log('donnees : ' + cpu + ' - ' + thread);
         gC.refresh(cpu);
         gT.refresh(thread);
-      });*/
-    });
+      });
+    });*/
 
 
 

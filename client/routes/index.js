@@ -23,13 +23,22 @@ router.get('/data', function(req, res){
     });
     // Add a 'data' event handler for the client socket
     // data is what the server sent to this socket
-    var donnee;
-    client.on('data', function (data) {
+    var cpu, th;
 
-        donnee=data;
+    client.on('data', function (data) {
+        var donnee = data;
+        var splitData = data.toString().split(";");
+        var cpuData = splitData[0].split("=");
+        var thData = splitData[1].split("=");
+        cpu = cpuData[1];
+        th = thData[1];
         console.log('DATA: ' + data);
+        console.log('cpu = '+ cpuData[1]+' thread = '+thData[1]);
         // Close the client socket completely
         // client.destroy();
+        //res.render('data', { title: 'RECEIVE DATA', cpu: cpu, th: th});
+        $('#gaugeCPU').refresh(cpu);
+        $('#gaugeThread').refresh(th);
 
     });
     // Add a 'close' event handler for the client socket
@@ -37,7 +46,9 @@ router.get('/data', function(req, res){
         console.log('Connection closed');
     });
 
-  res.render('data', { title: 'RECEIVE DATA', data: donnee});
+    //res.send('test');//
+    res.render('data', { title: 'RECEIVE DATA FROM RASPBERRY' });
+
 });
 
 module.exports = router;

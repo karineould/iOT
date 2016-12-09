@@ -11,25 +11,24 @@ block content
     script(src="/javascripts/justgage/justgage.js")
     script(src="/javascripts/socket.io/socket.io.js")
     script(type='text/javascript').
+        var gC;
+        var gT;
 
-//            var gC;
-//            var gT;
-//
-//             gC = new JustGage({
-//             id: "gaugeCPU",
-//             value: 0,
-//             min: 0,
-//             max: 100,
-//             title: "CPU"
-//             });
-//
-//             gT = new JustGage({
-//             id: "gaugeThread",
-//             value: 0,
-//             min: 0,
-//             max: 100,
-//             title: "Threads"
-//             });
+         gC = new JustGage({
+             id: "gaugeCPU",
+             value: 0,
+             min: 0,
+             max: 100,
+             title: "CPU"
+         });
+
+         gT = new JustGage({
+             id: "gaugeThread",
+             value: 0,
+             min: 0,
+             max: 100,
+             title: "Threads"
+         });
 
 
             /*socket.on('sendData', function (cpu, thread) {
