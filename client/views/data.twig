@@ -118,8 +118,8 @@
                     <th>Temps</th>
                     <th>CPU</th>
                     <th>Processus</th>
-                    {#<th>Mémoire Libre</th>#}
-                    {#<th>Mémoire Utilisée</th>#}
+                    <th>Mémoire Libre</th>
+                    <th>Mémoire Utilisée</th>
                 </tr>
                 </thead>
 
@@ -205,7 +205,9 @@
                     '<tr>'+
                     '<td>'+new Date().getTime()+ '</td>'+
                     '<td>'+newData.cpu+ '</td>'+
-                    '<td>'+newData.thread+ '</td>'+
+                    '<td>'+newData.proc+ '</td>'+
+                    '<td>'+newData.memFree+ '</td>'+
+                    '<td>'+newData.memUsed+ '</td>'+
                     '</tr>');
 
         });
