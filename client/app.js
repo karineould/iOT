@@ -77,6 +77,7 @@ io.sockets.on('connection', function (socket) {
   console.log('Un client est connecté !');
   io.connectedStatus = true;
   socket.on('disconnect', function(mess){
+    console.log('on disconnect'+mess);
     io.connectedStatus = false;
     //socket.disconnect();
   });

@@ -32,6 +32,7 @@ static char b[16];
 void * newService(void * fd){
 
   char buff[LBUF];
+  char buffMem[LBUF];
   int sock_err;
 
   //On verifie qu'on recoit bien les données du client 
@@ -43,9 +44,13 @@ void * newService(void * fd){
 
   //affiche le msg du client
   printf("buff reveive -> %s\n", buff);
+  strncpy(buffMem, buff, strlen(buff));
 
+  //vide le buffer
   buff[nb_recv] = 0;
   fflush(stdout);
+
+  printf("buff after flush -> %s\n", buff);
 
   char type[3];
   strncpy(type, buff, 3);
@@ -55,26 +60,25 @@ void * newService(void * fd){
       int th = 2;
       
 
-      printf("METHODE : %s\n", type);
-      printf("REQUEST : %s\n", buff);
-
       printf("Start send data to %d.........\n", fd);
       while(1){
         cpu++;
         th++;
-
         sprintf(reply,"cpu=%d;thread=%d;", cpu, th); 
         //TODO verifier le send du client 
         sprintf(buff,"%s\n",reply);
 
-
-
         if (send(fd, buff, strlen(buff),0) != strlen(buff)){
           fprintf(stderr, "Send failed\n\n");
-          return NULL;
+          // buff[nb_recv] = 0;
+          // fflush(stdout);
+          break;
         }
+
+        printf("send -> %s\n", buff);
         sleep(1);
       }
+      printf("fd close\n");
       close(fd);
 }
 

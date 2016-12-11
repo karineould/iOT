@@ -18,18 +18,26 @@ router.get('/data', function(req, res){
     //Socket client creation
     var client = new net.Socket();
 
+    console.log(port + ' '+ ip);
     //socket client connect to raspberry server
-    client.connect(port, ip, function (data) {
+    client.connect(port, ip, function () {
         console.log('CONNECTED TO: ' + ip + ':' + port);
         // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
         client.write('GET');
+        res.render('data.twig', { title: 'RECEIVE DATA FROM RASPBERRY' });
     });
 
+    client.on('error', function (err) {
+        console.log('error : '+ err);
+        client.destroy();
+        res.render('index.twig', { title: 'Temps réel', errorConnectRap:true });
+    });
     // Add a 'data' event handler for the client socket
     // data is what the server sent to this socket
     var io = req.app.get('socketio');
     client.on('data', function (data) {
         console.log('DATA: ' + data);
+        console.log(io.connectedStatus);
 
         var splitData = data.toString().split(";");
         var cpuData = splitData[0].split("=");
@@ -43,14 +51,12 @@ router.get('/data', function(req, res){
             console.log('Destruction du socket');
             client.destroy();
         }
-
     });
+
     // Add a 'close' event handler for the client socket
     client.on('close', function() {
         console.log('Connection closed');
     });
-
-    res.render('data.twig', { title: 'RECEIVE DATA FROM RASPBERRY' });
 
 });
 
