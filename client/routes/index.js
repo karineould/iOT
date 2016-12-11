@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 router.get('/data', function(req, res){
     var ip = req.query.ip;
     var port = req.query.port;
-    var cpu, th;
+    var cpu, proc, memUsed, memfree;
 
     //Socket client creation
     var client = new net.Socket();
@@ -40,13 +40,17 @@ router.get('/data', function(req, res){
 
         var splitData = data.toString().split(";");
         var cpuData = splitData[0].split("=");
-        var thData = splitData[1].split("=");
+        var procData = splitData[1].split("=");
+        var memUsedData = splitData[2].split("=");
+        var memFreeData = splitData[3].split("=");
         cpu = cpuData[1];
-        th = thData[1];
+        proc = procData[1];
+        memUsed = memUsedData[1];
+        memfree = memFreeData[1];
 
         console.log(io.connectedStatus);
         if(io.connectedStatus==null || io.connectedStatus==true) {
-            io.emit('newData', {cpu: cpu, thread: th});
+            io.emit('newData', {cpu: cpu, proc: proc, memUsed: memUsed, memFree: memfree});
         } else {
             console.log('Destruction du socket');
             client.destroy();

@@ -3,7 +3,7 @@
 {% block title %}Data{% endblock %}
 
 {% block body %}
-<body id="page-top" class="index">
+<body id="page-top" class="index" xmlns="http://www.w3.org/1999/html">
 
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -57,17 +57,12 @@
                 </div>
             </div>
 
-            <div class="col-xs-6 col-md-8">
-                <div id="gaugeCPU"></div>
+            <div class="col-lg-12 text-center">
+                <center><div id="gaugeCPU"></div></center>
             </div>
-            <div class="col-xs-6 col-md-8">
+
+            <div class="col-lg-12 text-center">
                 <canvas id="mycanvasCPU"  width="400" height="90"></canvas>
-            </div>
-            <div class="col-xs-6 col-md-8">
-                <div id="gaugeThread"></div>
-            </div>
-            <div class="col-xs-6 col-md-8">
-                <canvas id="mycanvasThread" width="400" height="90"></canvas>
             </div>
 
         </div>
@@ -81,11 +76,12 @@
                 </div>
             </div>
 
-            <div class="col-xs-6 col-md-8">
-                <div id="gaugeMemory"></div>
+            <div class="col-lg-12 text-center">
+                <div id="gaugeMemUsed"></div>
             </div>
-            <div class="col-xs-6 col-md-8">
-                <canvas id="mycanvasMemory" width="400" height="90"></canvas>
+
+            <div class="col-lg-12 text-center">
+                <div id="gaugeMemFree"></div>
             </div>
 
         </div>
@@ -98,11 +94,7 @@
                     <h2 class="section-heading">Processus dashborad</h2>
                 </div>
             </div>
-
-            <div class="col-xs-6 col-md-8">
-                <div id="gaugeProc"></div>
-            </div>
-            <div class="col-xs-6 col-md-8">
+            <div class="col-lg-12 text-center">
                 <canvas id="mycanvasProc" width="400" height="90"></canvas>
             </div>
 
@@ -118,51 +110,44 @@
     <script>
 
         var cpuLine = new TimeSeries();
-        var threadLine = new TimeSeries();
+        var ProcLine = new TimeSeries();
 
         var gC;
-        var gM;
-        var gP;
+        var memU;
+        var memF;
 
         gC = new JustGage({
             id: "gaugeCPU",
             value: 0,
             min: 0,
-            max: 500,
+            max: 1.0000,
             title: "CPU"
         });
 
-        gM = new JustGage({
-            id: "gaugeMemory",
+        memU = new JustGage({
+            id: "gaugeMemUsed",
             value: 0,
             min: 0,
-            max: 500,
-            title: "Memory"
+            max: 100,
+            title: "Memory Used"
         });
 
-        gP = new JustGage({
-            id: "gaugeProc",
+        memF = new JustGage({
+            id: "gaugeMemFree",
             value: 0,
             min: 0,
-            max: 500,
-            title: "Processus"
+            max: 100,
+            title: "Memory Free"
         });
-
 
         var socket = io.connect('http://localhost:3001');
-        console.log('socket connected ', socket.connected);
-        socket.on('connection',function(){
-            console.log('client se connect')
-        });
-
         socket.on('newData', function (newData) {
             console.log('Le serveur a un message pour vous : ' + newData.cpu);
             cpuLine.append(new Date().getTime(), newData.cpu);
-            threadLine.append(new Date().getTime(), newData.thread);
+            ProcLine.append(new Date().getTime(), newData.proc);
             gC.refresh(newData.cpu);
-            gM.refresh(newData.thread);
-//            gP.refresh(newData.proc);
-
+            memU.refresh(newData.memUsed);
+            memF.refresh(newData.memFree);
 
         });
 
@@ -170,7 +155,7 @@
             socket.emit("disconnect", 'close');
             socket.disconnect();
             window.location.href = '/';
-            socket.connect();
+//            socket.connect();
         });
 
         var smoothieCPU = new SmoothieChart({
@@ -181,7 +166,7 @@
             labels: {fillStyle: 'rgb(60, 0, 0)'}
         });
 
-        var smoothieThread = new SmoothieChart({
+        var smoothieProc = new SmoothieChart({
             grid: {
                 strokeStyle: 'rgb(125, 0, 0)', fillStyle: 'rgb(60, 0, 0)',
                 lineWidth: 1, millisPerLine: 250, verticalSections: 6,
@@ -194,14 +179,15 @@
             fillStyle: 'rgba(0, 255, 0, 0.4)',
             lineWidth: 3
         });
-        smoothieThread.addTimeSeries(threadLine, {
+
+        smoothieProc.addTimeSeries(ProcLine, {
             strokeStyle: 'rgb(255, 0, 255)',
             fillStyle: 'rgba(255, 0, 255, 0.3)',
             lineWidth: 3
         });
 
         smoothieCPU.streamTo(document.getElementById('mycanvasCPU'), 100);
-        smoothieThread.streamTo(document.getElementById('mycanvasMemory'), 100);
+        smoothieProc.streamTo(document.getElementById('mycanvasProc'), 100);
     </script>
 </body>
 {% endblock %}

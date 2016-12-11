@@ -32,7 +32,6 @@ static char b[16];
 void * newService(void * fd){
 
   char buff[LBUF];
-  char buffMem[LBUF];
   int sock_err;
 
   //On verifie qu'on recoit bien les données du client 
@@ -44,42 +43,38 @@ void * newService(void * fd){
 
   //affiche le msg du client
   printf("buff reveive -> %s\n", buff);
-  strncpy(buffMem, buff, strlen(buff));
 
   //vide le buffer
   buff[nb_recv] = 0;
   fflush(stdout);
 
   printf("buff after flush -> %s\n", buff);
+  char *reply[50];
+  float tcpu, 
+        memU,
+        memF;
+  int proc;
 
-  char type[3];
-  strncpy(type, buff, 3);
+  printf("Start send data to %d.........\n", fd);
+  while(1){
+      tcpu = tauxCPU();
+      memU = memUsed();
+      memF = memFree();
+      proc = countProc();
+    sprintf(reply,"cpu=%f;proc=%d;memUse=%f;memFree=%f", tcpu, proc, memU, memF); 
+    //TODO verifier le send du client 
+    sprintf(buff,"%s\n",reply);
 
-      char *reply[50];
-      int cpu = 1;
-      int th = 2;
-      
+    if (send(fd, buff, strlen(buff),0) != strlen(buff)){
+      fprintf(stderr, "Send failed\n\n");
+      break;
+    }
 
-      printf("Start send data to %d.........\n", fd);
-      while(1){
-        cpu++;
-        th++;
-        sprintf(reply,"cpu=%d;thread=%d;", cpu, th); 
-        //TODO verifier le send du client 
-        sprintf(buff,"%s\n",reply);
-
-        if (send(fd, buff, strlen(buff),0) != strlen(buff)){
-          fprintf(stderr, "Send failed\n\n");
-          // buff[nb_recv] = 0;
-          // fflush(stdout);
-          break;
-        }
-
-        printf("send -> %s\n", buff);
-        sleep(1);
-      }
-      printf("fd close\n");
-      close(fd);
+    printf("send -> %s\n", buff);
+    sleep(1);
+  }
+  printf("fd close\n");
+  close(fd);
 }
 
 int main(int N, char*P[])
