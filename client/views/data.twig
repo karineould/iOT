@@ -1,35 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends "layout.twig" %}
 
-    <link rel="stylesheet" href="/stylesheets/css/style.css">
-    <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
+{% block title %}Data{% endblock %}
 
-
-    <title>{{ title }}</title>
-</head>
+{% block body %}
 <body>
 
-    <h1>{{ title }}</h1>
 
-    <div id="gaugeCPU" class="200x160px"></div>
+<body id="page-top" class="index">
 
-    <div id="gaugeThread" class="200x160px"></div>
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">iOT Project</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a href="#" class="page-scroll btn btn-stop" id="closeConnectionBtn">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Arrêt
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <h1>{{title}}</h1>
+                <div class="col-xs-6 col-md-8">
+                    <div id="gaugeCPU"></div>
+                </div>
+                <div class="col-xs-6 col-md-8">
+                    <canvas id="mycanvasCPU"  width="400" height="90"></canvas>
+                </div>
+                <div><hr/><hr/></div>
+                <div class="col-xs-6 col-md-8">
+                    <div id="gaugeThread"></div>
+                </div>
+                <div class="col-xs-6 col-md-8">
+                    <canvas id="mycanvasThread" width="400" height="90"></canvas>
+                </div>
 
 
+            </div>
+        </div>
+    </header>
     <script src="/javascripts/lib/jquery-3.1.1.min.js"></script>
     <script src="/javascripts/bootstrap/bootstrap.min.js"></script>
     <script src="/javascripts/justgage/raphael-2.1.4.min.js"></script>
     <script src="javascripts/justgage/justgage.js"></script>
+    <script src="/javascripts/chart/smoothie.js"></script>
     <script src="/javascripts/socket.io/socket.io.js"></script>
-
-
     <script>
+
+        var cpuLine = new TimeSeries();
+        var threadLine = new TimeSeries();
+
         var gC;
         var gT;
 
@@ -37,7 +76,7 @@
             id: "gaugeCPU",
             value: 0,
             min: 0,
-            max: 100,
+            max: 500,
             title: "CPU"
         });
 
@@ -45,19 +84,54 @@
             id: "gaugeThread",
             value: 0,
             min: 0,
-            max: 100,
+            max: 500,
             title: "Threads"
         });
 
         var socket = io.connect('http://localhost:3001');
         socket.on('newData', function (newData) {
             console.log('Le serveur a un message pour vous : ' + newData.cpu);
+            cpuLine.append(new Date().getTime(), newData.cpu);
+            threadLine.append(new Date().getTime(), newData.thread);
             gC.refresh(newData.cpu);
             gT.refresh(newData.thread);
+            $('#closeConnectionBtn').on('click', function (e) {
+                socket.emit("disconnect", 'close');
+                socket.disconnect();
+                window.location.href = '/';
+                //window.location.reload();
+                socket.connect();
+            });
         });
+        var smoothieCPU = new SmoothieChart({
+            grid: {
+                strokeStyle: 'rgb(125, 0, 0)', fillStyle: 'rgb(60, 0, 0)',
+                lineWidth: 1, millisPerLine: 250, verticalSections: 6,
+            },
+            labels: {fillStyle: 'rgb(60, 0, 0)'}
+        });
+
+        var smoothieThread = new SmoothieChart({
+            grid: {
+                strokeStyle: 'rgb(125, 0, 0)', fillStyle: 'rgb(60, 0, 0)',
+                lineWidth: 1, millisPerLine: 250, verticalSections: 6,
+            },
+            labels: {fillStyle: 'rgb(60, 0, 0)'}
+        });
+
+        smoothieCPU.addTimeSeries(cpuLine, {
+            strokeStyle: 'rgb(0, 255, 0)',
+            fillStyle: 'rgba(0, 255, 0, 0.4)',
+            lineWidth: 3
+        });
+        smoothieThread.addTimeSeries(threadLine, {
+            strokeStyle: 'rgb(255, 0, 255)',
+            fillStyle: 'rgba(255, 0, 255, 0.3)',
+            lineWidth: 3
+        });
+
+        smoothieCPU.streamTo(document.getElementById('mycanvasCPU'), 100);
+        smoothieThread.streamTo(document.getElementById('mycanvasThread'), 100);
     </script>
-
-
-
 </body>
-</html>
+{% endblock %}
