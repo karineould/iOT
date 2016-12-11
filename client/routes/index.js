@@ -44,9 +44,10 @@ router.get('/data', function(req, res){
         cpu = cpuData[1];
         th = thData[1];
 
-        io.emit('newData',{cpu:cpu,thread:th});
-
-        if(io.connectedStatus==false){
+        console.log(io.connectedStatus);
+        if(io.connectedStatus==null || io.connectedStatus==true) {
+            io.emit('newData', {cpu: cpu, thread: th});
+        } else {
             console.log('Destruction du socket');
             client.destroy();
         }

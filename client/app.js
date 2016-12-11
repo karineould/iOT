@@ -78,7 +78,6 @@ io.sockets.on('connection', function (socket) {
   io.connectedStatus = true;
   socket.on('disconnect', function(mess){
     io.connectedStatus = false;
-    // socket.disconnect();
   });
 });
 app.set('socketio', io);

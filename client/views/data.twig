@@ -163,13 +163,14 @@
             gM.refresh(newData.thread);
 //            gP.refresh(newData.proc);
 
-            $('#closeConnectionBtn').on('click', function (e) {
-                socket.emit("disconnect", 'close');
-                socket.disconnect();
-                window.location.href = '/';
-                //window.location.reload();
-                socket.connect();
-            });
+
+        });
+
+        $('#closeConnectionBtn').on('click', function (e) {
+            socket.emit("disconnect", 'close');
+            socket.disconnect();
+            window.location.href = '/';
+            socket.connect();
         });
 
         var smoothieCPU = new SmoothieChart({
