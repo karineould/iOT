@@ -37,7 +37,6 @@ router.get('/data', function(req, res){
     var io = req.app.get('socketio');
     client.on('data', function (data) {
         console.log('DATA: ' + data);
-        console.log(io.connectedStatus);
 
         var splitData = data.toString().split(";");
         var cpuData = splitData[0].split("=");
