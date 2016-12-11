@@ -1,246 +1,227 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.twig" %}
 
-<head>
+    {% block title %}Raspberry{% endblock %}
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Agency - Start Bootstrap Theme</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/templates/index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/templates/index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
-    <!-- Theme CSS -->
-    <link href="/templates/index/css/agency.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
+    {#{% block link %}#}
+        {#<link href="/templates/index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">#}
+        {#<link href="/templates/index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">#}
+        {#<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">#}
+        {#<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>#}
+        {#<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>#}
+        {#<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>#}
+        {#<link href="/templates/index/css/agency.css" rel="stylesheet">#}
+    {#{% endblock %}#}
+{% block body %}
 <body id="page-top" class="index">
 
-<!-- Navigation -->
-<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand page-scroll" href="#page-top">iOT Project</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="hidden">
-                    <a href="#page-top"></a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#team">Team</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<!-- Header -->
-<header>
-    <div class="container">
-        <div class="intro-text">
-            <div class="intro-lead-in">Welcome To Our Project!</div>
-            <div class="intro-heading">Click to Connect !</div>
-            <a href="#" class="page-scroll btn btn-xl" id="btnConnect">Connect</a>
-        </div>
-    </div>
-</header>
-
-<!-- Team Section -->
-<section id="team" class="bg-light-gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Our Amazing Team</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="/templates/index/img/team/1.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Kay Garland</h4>
-                    <p class="text-muted">Lead Designer</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="/templates/index/img/team/2.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Larry Parker</h4>
-                    <p class="text-muted">Lead Marketer</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="/templates/index/img/team/3.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Diana Pertersen</h4>
-                    <p class="text-muted">Lead Developer</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Clients Aside -->
-<aside class="clients">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/templates/index/img/logos/envato.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/templates/index/img/logos/designmodo.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/templates/index/img/logos/themeforest.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/templates/index/img/logos/creative-market.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-</aside>
-
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <span class="copyright">Copyright &copy; Your Website 2016</span>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks">
-                    <li><a href="#">Privacy Policy</a>
-                    </li>
-                    <li><a href="#">Terms of Use</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<div class="modal fade" id="modalConnect">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <h4 class="modal-title">Connexion à un serveur</h4>
+                <a class="navbar-brand page-scroll" href="#page-top">iOT Project</a>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="inputIP">Adresse IP</label>
-                        <input type="text" class="form-control" id="inputIP" placeholder="Entrez l'adresse IP">
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#team">Team</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Welcome to real time !</div>
+                <div class="intro-heading">Click to Connect !</div>
+                <a href="#" class="page-scroll btn btn-xl" id="btnConnect">Connect</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Team Section -->
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Promo M1 - Ingésup</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        {#<img src="/templates/index/img/team/1.jpg" class="img-responsive img-circle" alt="">#}
+                        <img src="/images/karine.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Karine Ouldbraham</h4>
+                        <p class="text-muted">Lead Designer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPort">Port</label>
-                        <input type="number" class="form-control" id="inputPort" placeholder="Port">
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        {#<img src="/templates/index/img/team/2.jpg" class="img-responsive img-circle" alt="">#}
+                        <img src="/images/ben.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Ben Nikiema</h4>
+                        <p class="text-muted">Lead Marketer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
                     </div>
-                </form>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="/images/janany.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Janany Perinparajah</h4>
+                        <p class="text-muted">Lead Developer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="connectToRasp">Connexion</button>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+    </section>
+
+    {#<!-- Clients Aside -->#}
+    {#<aside class="clients">#}
+        {#<div class="container">#}
+            {#<div class="row">#}
+                {#<div class="col-md-3 col-sm-6">#}
+                    {#<a href="#">#}
+                        {#<img src="/templates/index/img/logos/envato.jpg" class="img-responsive img-centered" alt="">#}
+                    {#</a>#}
+                {#</div>#}
+                {#<div class="col-md-3 col-sm-6">#}
+                    {#<a href="#">#}
+                        {#<img src="/templates/index/img/logos/designmodo.jpg" class="img-responsive img-centered" alt="">#}
+                    {#</a>#}
+                {#</div>#}
+                {#<div class="col-md-3 col-sm-6">#}
+                    {#<a href="#">#}
+                        {#<img src="/templates/index/img/logos/themeforest.jpg" class="img-responsive img-centered" alt="">#}
+                    {#</a>#}
+                {#</div>#}
+                {#<div class="col-md-3 col-sm-6">#}
+                    {#<a href="#">#}
+                        {#<img src="/templates/index/img/logos/creative-market.jpg" class="img-responsive img-centered" alt="">#}
+                    {#</a>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</aside>#}
+
+
+    {#<footer>#}
+        {#<div class="container">#}
+            {#<div class="row">#}
+                {#<div class="col-md-4">#}
+                    {#<span class="copyright">Copyright &copy; Your Website 2016</span>#}
+                {#</div>#}
+                {#<div class="col-md-4">#}
+                    {#<ul class="list-inline social-buttons">#}
+                        {#<li><a href="#"><i class="fa fa-twitter"></i></a>#}
+                        {#</li>#}
+                        {#<li><a href="#"><i class="fa fa-facebook"></i></a>#}
+                        {#</li>#}
+                        {#<li><a href="#"><i class="fa fa-linkedin"></i></a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</div>#}
+                {#<div class="col-md-4">#}
+                    {#<ul class="list-inline quicklinks">#}
+                        {#<li><a href="#">Privacy Policy</a>#}
+                        {#</li>#}
+                        {#<li><a href="#">Terms of Use</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</footer>#}
+
+    <div class="modal fade" id="modalConnect">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Connexion à un serveur</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputIP">Adresse IP</label>
+                            <input type="text" class="form-control" id="inputIP" placeholder="Entrez l'adresse IP">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPort">Port</label>
+                            <input type="number" class="form-control" id="inputPort" placeholder="Port">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="connectToRasp">Connexion</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
 
 
-<!-- jQuery -->
-<script src="/templates/index/vendor/jquery/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="/templates/index/vendor/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/templates/index/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/templates/index/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-<!-- Plugin JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-<!-- Contact Form JavaScript -->
-<script src="/templates/index/js/jqBootstrapValidation.js"></script>
-<script src="/templates/index/js/contact_me.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="/templates/index/js/jqBootstrapValidation.js"></script>
+    <script src="/templates/index/js/contact_me.js"></script>
 
-<!-- Theme JavaScript -->
-<script src="/templates/index/js/agency.js"></script>
+    <!-- Theme JavaScript -->
+    <script src="/templates/index/js/agency.js"></script>
 
 </body>
+{% endblock %}
 
-</html>

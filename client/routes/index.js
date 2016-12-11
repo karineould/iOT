@@ -39,6 +39,11 @@ router.get('/data', function(req, res){
 
         io.emit('newData',{cpu:cpu,thread:th});
 
+        if(io.connectedStatus==false){
+            console.log('Destruction du socket');
+            client.destroy();
+        }
+
     });
     // Add a 'close' event handler for the client socket
     client.on('close', function() {

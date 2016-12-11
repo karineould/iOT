@@ -6,22 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    {% block headerLink %}{% endblock %}
-    <link rel="stylesheet" href="/stylesheets/css/style.css">
+    {#<link rel="stylesheet" href="/stylesheets/css/style.css">#}
     <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
+    <link href="/templates/index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/templates/index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="/templates/index/css/agency.css" rel="stylesheet">
+    {% block link %}{% endblock %}
 
     <title>{% block title %}{% endblock %}</title>
 </head>
 
 
-{% block content %}
-
+{% block body %}
+    {% block script %}{% endblock %}
 {% endblock %}
 
-
-
-{% block script %}{% endblock %}
 
 
 </html>

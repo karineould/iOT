@@ -63,7 +63,7 @@ app.use(function(err, req, res, next) {
 
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/views/index.jade');
+  res.sendfile(__dirname + '/views/index.twig');
 });
 
 //creation du serveur d'emission de donnée
@@ -75,6 +75,11 @@ var io = require('socket.io').listen(server);
 // Quand un client se connecte, on le note dans la console
 io.sockets.on('connection', function (socket) {
   console.log('Un client est connecté !');
+  io.connectedStatus = true;
+  socket.on('disconnect', function(mess){
+    io.connectedStatus = false;
+    //socket.disconnect();
+  });
 });
 app.set('socketio', io);
 
