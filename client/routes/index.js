@@ -6,7 +6,7 @@ var io = require('socket.io');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Temps réel' });
+  res.render('index.twig', { title: 'Temps réel' });
 });
 
 
@@ -45,7 +45,7 @@ router.get('/data', function(req, res){
         console.log('Connection closed');
     });
 
-    res.render('data', { title: 'RECEIVE DATA FROM RASPBERRY' });
+    res.render('data.twig', { title: 'RECEIVE DATA FROM RASPBERRY' });
 
 });
 
